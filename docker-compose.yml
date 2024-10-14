@@ -1,0 +1,21 @@
+x-logging:
+  &default-logging
+  options:
+    max-size: '12m'
+    max-file: '5'
+
+services:
+  awsk8sdeploy:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: awsk8sdeploy
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+    logging:
+      driver: "json-file"
+      <<: *default-logging
+    entrypoint: tail -f /dev/null

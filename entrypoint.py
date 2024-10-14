@@ -3,6 +3,7 @@ import sys
 import yaml
 import subprocess
 import base64
+import json
 
 def setup_kubeconfig():
     kube_config_data = os.getenv("KUBE_CONFIG")
@@ -79,14 +80,18 @@ def main():
     setup_kubeconfig()
     check_aws_credentials()
 
-    if len(sys.argv) < 2:
-        print("Usage: script.py <yaml_config>")
+    yaml_data = os.getenv("INPUT_ARGS") or (sys.argv[1] if len(sys.argv) > 1 else None)
+    if not yaml_data:
+        print("No YAML input provided. Set INPUT_ARGS or pass YAML as an argument. Exiting...")
         sys.exit(1)
 
-    yaml_data = sys.argv[1]
+    print("Received YAML data:")
+    print(yaml_data)
 
     try:
         config = yaml.safe_load(yaml_data)
+        print("Parsed YAML data as dictionary:")
+        print(json.dumps(config, indent=2))
     except yaml.YAMLError as e:
         print(f"Error parsing YAML: {e}")
         sys.exit(1)
@@ -94,9 +99,13 @@ def main():
     namespace = config.get("namespace")
     deployments = config.get("deployments", [])
     
+    print(f"Namespace: {namespace}")
+    print(f"Deployments: {deployments}")
+    
     validate_arguments(namespace, deployments)
 
     check_status = config.get("status", False)
+    print(f"Status flag: {check_status}")
 
     for deploy in deployments:
         deployment_name = deploy.get("deployment")
