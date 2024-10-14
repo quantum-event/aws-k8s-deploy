@@ -1,0 +1,6 @@
+name: aws-k8s-deploy
+description: "A tool for automating Kubernetes deployments with AWS integration. This project validates YAML configuration files, ensuring correct namespace, deployments, container, and image fields before executing kubectl commands. It supports both AWS credentials and role assumption for secure authentication and deployment processes"
+author: 'Engineering Galena'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
