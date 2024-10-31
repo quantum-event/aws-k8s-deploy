@@ -36,10 +36,7 @@ def check_aws_credentials():
     if role_to_assume:
         print(f"AWS Role to assume: {role_to_assume}")
     else:
-        print(
-            f"Using AWS_ACCESS_KEY_ID: {access_key} and "
-            f"AWS_SECRET_ACCESS_KEY."
-        )
+        print(f"Using AWS_ACCESS_KEY_ID: {access_key} and " f"AWS_SECRET_ACCESS_KEY.")
 
 
 def validate_arguments(namespace, deployments):
@@ -67,9 +64,13 @@ def validate_arguments(namespace, deployments):
 def run_kubectl_set_image(namespace, deployment, container, image):
     try:
         command = [
-            "kubectl", "set", "image", f"deployment/{deployment}",
+            "kubectl",
+            "set",
+            "image",
+            f"deployment/{deployment}",
             f"{container}={image}",
-            "--namespace", namespace
+            "--namespace",
+            namespace,
         ]
         subprocess.run(command, check=True)
         print(
@@ -84,14 +85,15 @@ def run_kubectl_set_image(namespace, deployment, container, image):
 def run_kubectl_rollout_status(namespace, deployment):
     try:
         command = [
-            "kubectl", "rollout", "status", f"deployment/{deployment}",
-            "--namespace", namespace
+            "kubectl",
+            "rollout",
+            "status",
+            f"deployment/{deployment}",
+            "--namespace",
+            namespace,
         ]
         subprocess.run(command, check=True)
-        print(
-            f"Rollout status for deployment {deployment} "
-            f"successfully checked."
-        )
+        print(f"Rollout status for deployment {deployment} " f"successfully checked.")
     except subprocess.CalledProcessError as e:
         print(f"Error checking the rollout status: {e}")
         sys.exit(1)
@@ -101,9 +103,7 @@ def main():
     setup_kubeconfig()
     check_aws_credentials()
 
-    yaml_data = os.getenv("INPUT_ARGS") or (
-        sys.argv[1] if len(sys.argv) > 1 else None
-    )
+    yaml_data = os.getenv("INPUT_ARGS") or (sys.argv[1] if len(sys.argv) > 1 else None)
     if not yaml_data:
         print(
             "No YAML input provided. Set INPUT_ARGS or pass YAML as an "
