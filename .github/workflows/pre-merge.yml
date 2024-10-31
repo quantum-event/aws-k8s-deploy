@@ -35,18 +35,6 @@ jobs:
       
       - name: Run Unit Test on test_entrypoint.py
         run: python -m unittest test_entrypoint.py
-      
-    #   - name: Security Check with Bandit
-    #     uses: owasp/dependency-check-action@v4
-    #     with:
-    #       output_directory: './reports'
-    #     continue-on-error: true  # Optional, will not block the PR if there are warnings
-
-      - name: Upload Reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: pre-merge-reports
-          path: ./reports
 
   build:
     name: Build and analyze
@@ -60,9 +48,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#
