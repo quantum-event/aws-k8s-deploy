@@ -1,12 +1,11 @@
 name: Pre-Merge Checks
 
 on:
-  pull_request:
+  push:
     branches:
-        - "**"
-        - "!main"
-        - "!staging"
-
+      - "**"
+      - "!main"
+      - "!staging"
 
 jobs:
   pre-merge-checks:
@@ -28,8 +27,8 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-        #   pip install -r requirements.txt
-          pip install flake8 black
+        # pip install -r requirements.txt
+        pip install flake8 black
 
       - name: Lint Code with flake8
         run: |
