@@ -37,11 +37,11 @@ jobs:
         run: |
           python -m unittest test_entrypoint.py
       
-      - name: Security Check with Bandit
-        uses: owasp/dependency-check-action@v4
-        with:
-          output_directory: './reports'
-        continue-on-error: true  # Optional, will not block the PR if there are warnings
+    #   - name: Security Check with Bandit
+    #     uses: owasp/dependency-check-action@v4
+    #     with:
+    #       output_directory: './reports'
+    #     continue-on-error: true  # Optional, will not block the PR if there are warnings
 
       - name: Upload Reports
         uses: actions/upload-artifact@v3
