@@ -6,7 +6,7 @@ on:
         - "**"
         - "!main"
         - "!staging"
-  
+
 
 jobs:
   pre-merge-checks:
