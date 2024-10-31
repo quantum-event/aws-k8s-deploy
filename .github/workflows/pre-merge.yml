@@ -10,10 +10,6 @@ jobs:
   pre-merge-checks:
     name: Pre-Merge Checks
     runs-on: ubuntu-latest
-
-    env:
-      AWS_REGION: "us-east-1"
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
