@@ -2,12 +2,17 @@ import os
 import unittest
 import base64
 from unittest.mock import patch
-from entrypoint import setup_kubeconfig, check_aws_credentials, validate_arguments
+from entrypoint import (
+    setup_kubeconfig,
+    check_aws_credentials,
+    validate_arguments,
+)
 
 
 class TestMainFunctions(unittest.TestCase):
     @patch.dict(
-        os.environ, {"KUBE_CONFIG": base64.b64encode(b"fake-kube-config").decode()}
+        os.environ,
+        {"KUBE_CONFIG": base64.b64encode(b"fake-kube-config").decode()},
     )
     def test_setup_kubeconfig(self):
         """Test to verify that KUBECONFIG is set up correctly."""
@@ -32,7 +37,8 @@ class TestMainFunctions(unittest.TestCase):
             check_aws_credentials()
         except SystemExit:
             self.fail(
-                "check_aws_credentials() exited unexpectedly " "with valid credentials."
+                "check_aws_credentials() exited unexpectedly "
+                "with valid credentials."
             )
 
     @patch.dict(os.environ, {"AWS_REGION": "us-east-1"})
@@ -56,7 +62,8 @@ class TestMainFunctions(unittest.TestCase):
             validate_arguments(namespace, deployments)
         except SystemExit:
             self.fail(
-                "validate_arguments() exited unexpectedly " "with valid arguments."
+                "validate_arguments() exited unexpectedly "
+                "with valid arguments."
             )
 
     def test_validate_arguments_invalid_namespace(self):
