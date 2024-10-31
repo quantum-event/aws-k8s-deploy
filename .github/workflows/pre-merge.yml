@@ -34,8 +34,7 @@ jobs:
           black --check .
       
       - name: Run Unit Test on test_entrypoint.py
-        run: |
-          python -m unittest test_entrypoint.py
+        run: python -m unittest test_entrypoint.py
       
     #   - name: Security Check with Bandit
     #     uses: owasp/dependency-check-action@v4
